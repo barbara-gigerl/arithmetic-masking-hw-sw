@@ -1,0 +1,15 @@
+read_verilog rtl/cgv14.v
+read_verilog rtl/SecAdd.v
+read_verilog rtl/SecAnd.v
+
+hierarchy -check -top cgv14;
+setattr -set keep 1 w:\*
+
+proc; flatten; opt -nodffe -nosdff; memory;  opt -nodffe -nosdff; techmap; opt -nodffe -nosdff; clean;
+
+rename -enumerate
+
+write_verilog -noattr build/circuit.v;
+
+write_json build/circuit.json;
+
